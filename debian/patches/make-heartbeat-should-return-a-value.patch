@@ -1,0 +1,45 @@
+Description: <short summary of the patch>
+ TODO: Put a short summary on the line above and replace this paragraph
+ with a longer explanation of this change. Complete the meta-information
+ with other relevant fields (see below for details). To make it easier, the
+ information below has been extracted from the changelog. Adjust it or drop
+ it.
+ .
+ gtk+2.0 (2.24.32.2-1+deepin) unstable; urgency=low
+ .
+   * ['Autobuild release-candidate: 48bd6ff11d03eee8c1adbecf0a05366ee2f48f7b']
+Author: shuttle <shuttle@deepin.com>
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: https://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: 2020-01-02
+
+--- gtk+2.0-2.24.32.2.orig/gtk/ddefiledialog.c
++++ gtk+2.0-2.24.32.2/gtk/ddefiledialog.c
+@@ -620,7 +620,7 @@ static void d_on_gtk_filedialog_select_m
+     }
+ }
+ 
+-static void d_heartbeat_filedialog(GtkWidget *widget_ghost)
++static gboolean d_heartbeat_filedialog(GtkWidget *widget_ghost)
+ {
+     gboolean ok = d_dbus_filedialog_call_by_ghost_widget_sync(widget_ghost,
+                                                               "makeHeartbeat",
+@@ -633,6 +633,8 @@ static void d_heartbeat_filedialog(GtkWi
+         d_get_gtk_dialog_response_id(GTK_DIALOG(widget_ghost), NULL, &rejept_response_id);
+         gtk_dialog_response(GTK_DIALOG(widget_ghost), rejept_response_id);
+     }
++	
++	return ok;
+ }
+ 
+ static int d_bbyte_array_find_char(const GByteArray *array, gchar ch, int start)
